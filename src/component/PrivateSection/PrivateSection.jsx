@@ -7,6 +7,10 @@ import cameraIcn from '../../assets/camera-minimalistic-svgrepo-com.svg'
 import videoIcn from '../../assets/video-svgrepo-com.svg'
 import filesIcn from '../../assets/files-svgrepo-com.svg'
 import addIcn from '../../assets/add-svgrepo-com.svg'
+import VideoCamera from '../VideoSection/VideoCamera'
+import ScreenRecorder from '../ScreenRecord/ScreenRecord'
+import { formatTime } from '../VideoSection/formatTime'
+import MediaView from '../MediaView/MediaView'
 
 
 
@@ -18,9 +22,12 @@ function PrivateSection({backGroundImage}) {
     const [showSaveFilesMini, setShowSaveFilesMini] = useState(false)
     const [showDetailed, setShowDetailed] = useState(false)
     const [currentTab, setCurrentTab] = useState("photos")
-
+    const [savedFiles, addToSavedFiles] = useState([])
+    const [cameraPopOpened, setCameraPopOpened] = useState(false)
+    const [mediaPopOpened, setMediaPopOpened] = useState(false)
     const addOpt = useRef()
     const txtA = useRef()
+    const ppg = useRef();
 
 
     function textareaEnter(event){
@@ -134,18 +141,29 @@ function PrivateSection({backGroundImage}) {
         
     }
     
+    
+    
 
     useEffect(() => {
         if(height < 50){
             txtA.current.style.height = height + 'px';
         }
     }, [height])
+
+    function getNameNow(id, type){
+        let dateNow = new Date()
+        let year = dateNow.getFullYear()
+        let month = dateNow.getMonth()
+        let day = dateNow.getDay()
+        return(`${type}${id}${year}${month}${day}`);
+    }
+    
     
 
 
 
   return (
-    <div className='privatePage'>
+    <div ref={ppg} className='privatePage'>
         <div className="topSection">
             <h1>Private</h1>
             <button className='exitBtn'>Exit</button>
@@ -154,6 +172,21 @@ function PrivateSection({backGroundImage}) {
         <div className="backgroundImage">
             <img src={backGroundImage} alt="background" />
         </div>
+
+        {/* <VideoCamera 
+            setCameraPopOpened={(val)=>setCameraPopOpened(val)} 
+            cameraPopOpened={cameraPopOpened} 
+            savedFiles={savedFiles} 
+            addPhotoToSavedFiles={(url)=>addToSavedFiles((prevData) => [...prevData, {url, type: "Image", name: getNameNow(savedFiles.length, "Image")}])}
+            addVideoToSavedFiles={(url, seconds, thumbnail)=>addToSavedFiles((prevData) => [...prevData, {url, duration:seconds, thumbnail, type: "Video", name: getNameNow(savedFiles.length, "Video")}])}
+            setMediaPopOpened={val=>setMediaPopOpened(val)}
+            />
+            <MediaView 
+                savedFiles={savedFiles}
+                mediaPopOpened={mediaPopOpened}
+                setMediaPopOpened={val=>setMediaPopOpened(val)}
+             /> */}
+        {/* {ppg.current!==undefined? <ScreenRecorder contentToCap={ppg} />:null} */}
 
         <div className={showSaveFilesMini? "bottomSection toSaveFileMini": "bottomSection"}>
             <div className="addSec">
@@ -164,7 +197,7 @@ function PrivateSection({backGroundImage}) {
                     <li className="option">
                         <img src={cameraIcn} alt="camera" />
                         Screenshot</li>
-                    <li className="option">
+                    <li className="option" onClick={()=>setCameraPopOpened(true)}>
                         <img src={videoIcn} alt="video" />
                         Record Videos</li>
                     <li className="option showSveFile" onClick={()=>{
@@ -187,18 +220,46 @@ function PrivateSection({backGroundImage}) {
                 <div className="savedFilesMini">
                     <div className="saveTop">
                         <h3>saved files</h3>
-                        <span className='btn-more' onClick={()=> {
-                            setShowDetailed(true)
-                            setShowSaveFilesMini(false)
-                        }}>more</span>
+                        {
+                            savedFiles.length>20?<span className='btn-more' onClick={()=> {
+                                    setShowDetailed(true)
+                                    setShowSaveFilesMini(false)
+                                }}>more</span>:null
+                        }
                     </div>
                     <div className="mediaList">
-                        <ul className="mediaItemsCont">
-                            <li className="mediaItem"></li>
-                            <li className="mediaItem"></li>
-                            <li className="mediaItem"></li>
-                            <li className="mediaItem"></li>
-                            <li className="mediaItem"></li>
+                        <ul className={savedFiles.length>0?"mediaItemsCont": "mediaItemsCont none"}>
+                            
+                            {
+                                savedFiles.length>0?savedFiles.map((item, index)=>{
+                                    if(index <= 19){
+                                        return savedFiles.length>0?
+                                        item.type=="Image"?
+                                    <li className="mediaItem" key={index} id={index} onClick={()=>setMediaPopOpened(true)}>
+                                        <img src={item.url} alt={index+"item"} />
+                                    </li>
+
+                                    :item.type=="Video"?
+                                    <li className="mediaItem" key={index} id={index} onClick={()=>setMediaPopOpened(true)}>
+                                        <img src={item.thumbnail} alt="photo" />
+                                        <span className='timer'>
+                                            <b className="min">{formatTime(item.duration).minutes<10?"0"+formatTime(item.duration).minutes:formatTime(item.duration).minutes}</b>
+                                            {":"}
+                                            <b className="sec">{formatTime(item.duration).seconds<10?"0"+formatTime(item.duration).seconds:formatTime(item.duration).seconds}</b>
+                                        </span>
+                                    </li>      
+                                    
+                            :null:null
+                                    }
+                                }):
+                                <>
+                                    <li className="mediaItem" onClick={()=>setMediaPopOpened(true)}></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                </>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -206,7 +267,6 @@ function PrivateSection({backGroundImage}) {
                         <span className="back" onClick={()=>{
                                 setShowDetailed(false)
                                 setShowSaveFilesMini(true)
-
                             }
                         }>
                             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
@@ -218,26 +278,35 @@ function PrivateSection({backGroundImage}) {
                             <span className={currentTab=="videos"?'videosTabNav naved':"videosTabNav"} onClick={()=> setCurrentTab("videos")}>Videos</span>
                         </div>
                         <div className="mediaList">
-                            <ul className="mediaItemsCont">
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
+                            <ul className={savedFiles.length>0?"mediaItemsCont": "mediaItemsCont none"}>
+                                
+                                {
+                                    savedFiles.length>0?savedFiles.map((item, index)=>{
+                                    return <li className="mediaItem" key={index} onClick={()=>setMediaPopOpened(true)}>
+                                        <img src={item} alt={index+"item"} />
+                                    </li>
+                                }):
+                                <>
+                                    <li className="mediaItem" onClick={()=>setMediaPopOpened(true)}></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
 
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
-                                <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>
+                                    <li className="mediaItem"></li>                                </>
+                                }
                             </ul>
                         </div>
                 </div>

@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 
 import './App.css'
 import PrivateSection from './component/PrivateSection/PrivateSection'
 import backGroundImage from '../src/assets/-5793909568500250248_121~2.jpg'
+import SubscriptionSettingsPage from './component/SubscriptionSettingsPage/SubscriptionSettingsPage'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -10,7 +12,8 @@ function App() {
 
   return (
     <>
-      <PrivateSection backGroundImage={backGroundImage}/>
+      {/* <PrivateSection backGroundImage={backGroundImage}/> */}
+      <SubscriptionSettingsPage/>
     </>
   )
 }

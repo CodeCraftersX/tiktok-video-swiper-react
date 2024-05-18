@@ -1,6 +1,6 @@
 .privatePage{
     width: 100vw;
-    max-width: 500px;
+    max-width: 768px;
     height: 100vh;
     background-color: grey;
     position: relative;
@@ -74,7 +74,7 @@
     position: relative;
 }
 .privatePage .bottomSection .typingCont label[for=textMessage]{
-    width: fit-content;
+    width: calc(100% - 80px);
     padding: 15px;
     height: fit-content;
     background-color: rgb(230, 230, 230);
@@ -85,16 +85,17 @@
     overflow: hidden;
 }
 .privatePage .bottomSection .typingCont label[for=textMessage] textarea{
-    width: 80vw;
-    max-width: 240px;
+    width: 100%;
     max-height: 50px;
-    min-height: 11px;
+    min-height: 22px;
     margin: 0;
     resize: none;
     background-color: rgba(0, 0, 0, 0);
     color: black;
     border: none;
     outline: none;
+    font-weight: bolder;
+    font-size: 20px;
 }
 .privatePage .bottomSection .typingCont label[for=textMessage] textarea::-webkit-scrollbar{
     display: none;
@@ -232,6 +233,7 @@
     width: fit-content;
     height: fit-content;
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: flex-start;
     list-style-type: none;
@@ -239,15 +241,25 @@
     padding: 0 10px;
 
 }
-
+.bottomSection .savedFiles .savedFilesMini .mediaList .mediaItemsCont.none .mediaItem{
+    animation: mediaItemAnim 1s linear infinite ;
+}
 .bottomSection .savedFiles .savedFilesMini .mediaList .mediaItemsCont .mediaItem{
     width: 60px;
     height: 60px;
     background-color: rgb(151, 151, 151);
     border-radius: 5px;
     cursor: pointer;
-    animation: mediaItemAnim 1s linear infinite ;
+    overflow: hidden;
+    position: relative;
 
+}
+
+.bottomSection .savedFiles .savedFilesMini .mediaList .mediaItemsCont .mediaItem img{
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
 }
 .bottomSection .savedFiles .savedFilesMini .mediaList .mediaItemsCont .mediaItem:hover{
     opacity: 70%;
@@ -323,23 +335,44 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     list-style-type: none;
+    flex-direction: row-reverse;
     gap: 10px;
     padding: 0 10px;
 
 }
-
+.bottomSection .savedFiles .savedFilesDetailed .mediaList .mediaItemsCont.none .mediaItem{
+    animation: mediaItemAnim 1s linear infinite ;
+}
 .bottomSection .savedFiles .savedFilesDetailed .mediaList .mediaItemsCont .mediaItem{
     width: 100px;
     height: 100px;
     background-color: rgb(151, 151, 151);
     border-radius: 5px;
     cursor: pointer;
-    animation: mediaItemAnim 1s linear infinite ;
+    overflow: hidden;
+    position: relative;
+}
+.bottomSection .savedFiles .savedFilesDetailed .mediaList .mediaItemsCont .mediaItem img{
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
 }
 .bottomSection .savedFiles .savedFilesDetailed .mediaList .mediaItemsCont .mediaItem:hover{
     opacity: 70%;
     transition-duration: 200ms;
 }
+ .mediaItem span.timer {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+  
+  }
+ .mediaItem span.timer b{
+      font-weight: normal;
+  }
 
 
 @keyframes mediaItemAnim {
@@ -367,67 +400,18 @@
     .bottomSection .savedFiles .savedFilesDetailed .mediaList .mediaItemsCont .mediaItem{
         width: calc(78vw / 4);
         height: 100px;
-        aspect-ratio: 16/9;
-        background-color: rgb(151, 151, 151);
-        border-radius: 5px;
-        cursor: pointer;
-        animation: mediaItemAnim 1s linear infinite ;
     }
 }
 
 @media screen and (max-width: 400px) {
-    .privatePage .bottomSection .typingCont label[for=textMessage] textarea{
-        width: 80vw;
-        max-width: 220px;
-        max-height: 50px;
-        min-height: 11px;
-        margin: 0;
-        resize: none;
-        background-color: rgba(0, 0, 0, 0);
-        color: black;
-        border: none;
-        outline: none;
-    }
+
     .bottomSection .savedFiles .savedFilesDetailed .mediaList .mediaItemsCont{
         grid-template-columns: repeat(3, 1fr);
     }
     .bottomSection .savedFiles .savedFilesDetailed .mediaList .mediaItemsCont .mediaItem{
         width: calc(78vw / 3);
-        height: 100px;
-        aspect-ratio: 16/9;
-        background-color: rgb(151, 151, 151);
-        border-radius: 5px;
-        cursor: pointer;
-        animation: mediaItemAnim 1s linear infinite ;
+
     }
 }
 
-@media screen and (min-width: 500px) {
-    .privatePage .bottomSection .typingCont label[for=textMessage] textarea{
-        width: 80vw;
-        max-width: 320px;
-        max-height: 50px;
-        min-height: 11px;
-        margin: 0;
-        resize: none;
-        background-color: rgba(0, 0, 0, 0);
-        color: black;
-        border: none;
-        outline: none;
-    }
-}
-@media screen and (max-width: 350px) {
-    .privatePage .bottomSection .typingCont label[for=textMessage] textarea{
-        width: 80vw;
-        max-width: 190px;
-        max-height: 50px;
-        min-height: 11px;
-        margin: 0;
-        resize: none;
-        background-color: rgba(0, 0, 0, 0);
-        color: black;
-        border: none;
-        outline: none;
-    }
 
-}

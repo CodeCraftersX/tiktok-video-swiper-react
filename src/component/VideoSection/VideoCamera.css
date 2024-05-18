@@ -1,0 +1,173 @@
+.VideoCamera{
+    width: calc(100% - 0px);
+    height: calc(100% - 0px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 30px;
+    overflow: hidden;
+    z-index: 2;
+}
+.videoCameraTop{
+    width: 100%;
+    height: 50px;
+    background-color: rgb(41, 41, 41);
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.videoCameraTop .timerCont{
+    width: 100%;
+    height: fit-content;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.videoCameraTop .timer::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    margin-right: 10px;
+    animation: blinkRecord 2s linear infinite;
+}
+ .videoCameraTop .timerCont .timer{
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(41, 41, 41);
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;}
+.videoCameraBottom{
+    width: 100%;
+    height: 80px;
+    background-color: rgb(41, 41, 41);
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.videoCameraBottom .mostRecentPrev{
+    width: 70px;
+    height: 70px;
+    background-color: grey;
+    position: absolute;
+    left: 20px;
+    border-radius: 5px;
+    top: 5px;
+    overflow: hidden;
+}
+.videoCameraBottom .mostRecentPrev span.timer {
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+
+}
+.videoCameraBottom .mostRecentPrev span.timer b{
+    font-weight: normal;
+}
+
+.videoCameraBottom .mostRecentPrev img{
+    width: 100%;
+    height: 100% ;
+    object-fit: cover;
+    object-position: center;
+}
+.VideoCamera .back{
+    width: fit-content;
+    height: fit-content;
+    margin-left: 10px;
+    cursor: pointer;
+    padding: 10px;
+
+}
+.VideoCamera .back svg path{
+    fill: rgb(85, 85, 85);
+}
+.VideoCamera .back svg{
+    width: 20px;
+    height: 20px;
+    transform: rotate(90deg);
+}
+.VideoCamera video{
+    width: 100%;
+    height: 100% !important;
+    position: absolute;
+    object-fit: cover;
+    object-position: center;
+    top: 0;
+    left: 0;
+}
+.VideoCamera .controls{
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.VideoCamera .controls button{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(249, 249, 249, 0.296);
+    backdrop-filter: blur(20px);
+    cursor: pointer;
+}
+.VideoCamera .controls button.stop{
+    background-color: red;
+}
+.VideoCamera .controls button > *{
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+}
+.VideoCamera .photoPop{
+    width: 100px;
+    height: 200px;
+    background-color: aliceblue;
+    position: absolute;
+    top: 100px;
+    right: 10px;
+}
+
+.VideoCamera .photoPop img{
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+}
+
+@keyframes blinkRecord {
+    0%{
+        background-color: red;
+    }
+    25%{
+        background-color: rgba(255, 0, 0, 0.259);
+    }
+    50%{
+        background-color: rgba(255, 0, 0, 0.542);
+    }
+    75%{
+        background-color: rgba(255, 0, 0, 0.259);
+    }
+    100%{
+        background-color: red;
+    }
+}
