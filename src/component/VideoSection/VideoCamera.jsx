@@ -31,43 +31,48 @@ function VideoCamera({savedFiles, addPhotoToSavedFiles, addVideoToSavedFiles, ca
 
     useEffect(() => {
         if (!mediaStream && videoRef.current) {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function(stream) {
-                    videoRef.current.srcObject = stream;
-                    setMediaStream(stream);
-                })
-                .catch(function(err) {
-                    console.error('Error accessing the camera:', err);
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                return navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            } else if (navigator.getUserMedia) {
+                return new Promise((resolve, reject) => {
+                    navigator.getUserMedia({ video: true, audio: true }, resolve, reject);
                 });
+            } else {
+                console.log('getUserMedia is not supported in this browser');
+            }
         }
     }, [mediaStream]);
 
     // Function to start video recording
-    const startRecording = () => {
-        if (videoRef.current && videoRef.current.srcObject) {
-            const stream = videoRef.current.srcObject;
-            const recorder = new MediaRecorder(stream);
-            setMediaRecorder(recorder);
 
-            recorder.ondataavailable = function(e) {
-                setRecordedChunks(prevChunks => [...prevChunks, e.data]);
-            };
-            recorder.onstop = function() {
-                const blob = new Blob(recordedChunks, { 'type' : 'video/webm' });
-                setRecordedChunks([]);
-                const videoUrl = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = videoUrl;
-                a.download = 'video.webm';
-                // a.click();
-                setVideoObj({videoUrl, thumbnail:takePhoto(false)})
-                console.log(videoUrl);
-            };
+    // Function to start video recording
+const startRecording = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject;
+        const recorder = new MediaRecorder(stream);
+        setMediaRecorder(recorder);
+        const chunks = [];
 
-            recorder.start();
-            setRecording(true);
-        }
-    };
+        recorder.ondataavailable = function(e) {
+            chunks.push(e.data);
+        };
+
+        recorder.onstop = function() {
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            const videoUrl = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = videoUrl;
+            a.download = 'video.webm';
+            a.click();
+            setVideoObj({videoUrl, thumbnail:takePhoto(false)})
+
+            setRecording(false);
+        };
+
+        recorder.start();
+        setRecording(true);
+    }
+};
 
     useEffect(() => {
             if(videoObj.videoUrl !== ""){

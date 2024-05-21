@@ -138,3 +138,33 @@
     object-fit: contain;
     object-position: center;
   }
+  .mediaControls {
+    width: 80%;
+    height: fit-content;
+    position: absolute;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .mediaTiming {
+    width: 80%;
+    height: fit-content;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .play {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    position: relative;
+    margin-right: 10px;
+  }
+  .play svg, .play img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }

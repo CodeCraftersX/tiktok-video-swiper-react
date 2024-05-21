@@ -243,7 +243,6 @@ function SubscriptionSettingsPage() {
                 </li>
             </ul>
         </div>
-        
     </div>
   )
 }

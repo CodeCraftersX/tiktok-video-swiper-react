@@ -1,12 +1,23 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './MediaView.css'
 import { formatTime } from '../VideoSection/formatTime'
+import MediaRange from './MediaRange'
+import play from '../../assets/play-svgrepo-com.svg'
+import { getCurrentPlaybackPercent, percentToSeconds } from './timing'
+
+
+
 
 function MediaView({savedFiles, setMediaPopOpened, mediaPopOpened}) {
+  const videoRef = useRef(null);
   const [mediaPopIsOpened, setMediaPopIsOpened] = useState(mediaPopOpened)
   const [toBeViewed, setToBeViewed] = useState({url: "", type: "", name: ""})
+  const [inpVal, setInpVal] = useState(0)
+  const [currentTime, setCurrentTime] = useState(0);
+  const [playing, setPlaying] = useState(false)
+
 
   function getToBeViewed(id){
     savedFiles.map((item, index)=>{
@@ -15,6 +26,53 @@ function MediaView({savedFiles, setMediaPopOpened, mediaPopOpened}) {
       }
     })
   }
+  useEffect(() => {
+    const handleTimeUpdate = () => {
+        if (videoRef.current) {
+            setCurrentTime(videoRef.current.currentTime);
+        }
+    };
+
+    const videoElement = videoRef.current;
+    if (videoElement) {
+        videoElement.addEventListener('timeupdate', handleTimeUpdate);
+    }
+
+    return () => {
+        if (videoElement) {
+            videoElement.removeEventListener('timeupdate', handleTimeUpdate);
+        }
+    };
+}, []);
+function setToPlaying(){
+  const video = videoRef.current;
+  if(playing){
+      video.pause()
+      setPlaying(false)
+  }else if(!playing){
+      video.play()
+      setPlaying(true)
+  }
+}
+useEffect(() => {
+  try {
+    videoRef.current.currentTime = inpVal
+  } catch (error) {
+    return
+  }
+}, [inpVal]);
+useEffect(() => {
+  try {
+    if(currentTime == toBeViewed.duration+1){
+      console.log(currentTime);
+      setPlaying(false)
+    }
+  } catch (error) {
+    return
+  }
+}, [currentTime]);
+
+
 
   return (
     <div className='mediaView' style={mediaPopIsOpened||mediaPopOpened==true?{display: 'block'}:{display: 'none'}}>
@@ -35,7 +93,25 @@ function MediaView({savedFiles, setMediaPopOpened, mediaPopOpened}) {
                 toBeViewed.type=="Image"?
                   <img src={toBeViewed.url} alt="" />
                 :toBeViewed.type=="Video"?
-                  <video src={toBeViewed.url}></video>
+                  <>
+                    <video ref={videoRef} src={toBeViewed.url} controls></video>
+                    <div className="mediaControls">
+                      <div className="play" onClick={setToPlaying}>
+                          {
+                              playing? <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="800px" height="800px" viewBox="0 0 32 32" version="1.1">
+                                          <path d="M5.92 24.096q0 0.832 0.576 1.408t1.44 0.608h4.032q0.832 0 1.44-0.608t0.576-1.408v-16.16q0-0.832-0.576-1.44t-1.44-0.576h-4.032q-0.832 0-1.44 0.576t-0.576 1.44v16.16zM18.016 24.096q0 0.832 0.608 1.408t1.408 0.608h4.032q0.832 0 1.44-0.608t0.576-1.408v-16.16q0-0.832-0.576-1.44t-1.44-0.576h-4.032q-0.832 0-1.408 0.576t-0.608 1.44v16.16z"/>
+                                      </svg>
+                                      : <img src={play} alt="play" />
+                          }
+                      </div>
+                      <div className="mediaTiming">
+                        <b className="currentTime">{formatTime(currentTime).minutes<10?"0"+formatTime(currentTime).minutes:formatTime(currentTime).minutes}:{formatTime(currentTime).seconds<10?"0"+formatTime(currentTime).seconds:formatTime(currentTime).seconds}</b>
+                        <MediaRange setValue={val=> setInpVal(percentToSeconds(val, toBeViewed.duration))} click={()=>setInpVal(percentToSeconds(inpVal), toBeViewed.duration)} value={getCurrentPlaybackPercent(currentTime, toBeViewed.duration)}/>
+                        <b className="totalTime">{formatTime(toBeViewed.duration).minutes<10?"0"+formatTime(toBeViewed.duration).minutes:formatTime(toBeViewed.duration).minutes}:{formatTime(toBeViewed.duration).seconds<10?"0"+formatTime(toBeViewed.duration).seconds:formatTime(toBeViewed.duration).seconds}</b>
+                      </div>
+                     
+                    </div>
+                  </>
                 :null
               }
         </div>

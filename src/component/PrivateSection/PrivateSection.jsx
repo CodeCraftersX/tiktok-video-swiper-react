@@ -173,7 +173,7 @@ function PrivateSection({backGroundImage}) {
             <img src={backGroundImage} alt="background" />
         </div>
 
-        {/* <VideoCamera 
+        <VideoCamera 
             setCameraPopOpened={(val)=>setCameraPopOpened(val)} 
             cameraPopOpened={cameraPopOpened} 
             savedFiles={savedFiles} 
@@ -185,7 +185,7 @@ function PrivateSection({backGroundImage}) {
                 savedFiles={savedFiles}
                 mediaPopOpened={mediaPopOpened}
                 setMediaPopOpened={val=>setMediaPopOpened(val)}
-             /> */}
+             />
         {/* {ppg.current!==undefined? <ScreenRecorder contentToCap={ppg} />:null} */}
 
         <div className={showSaveFilesMini? "bottomSection toSaveFileMini": "bottomSection"}>
