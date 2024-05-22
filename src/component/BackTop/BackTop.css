@@ -1,0 +1,31 @@
+
+/* topnav */
+ .topnav{
+    width: 100%;
+    height: fit-content;
+    background-color: white;
+    margin: 0;
+    padding: 10px 0;
+    z-index: 3;
+    box-shadow:-1px 10px 10px rgb(46, 45, 45, 0.098);
+}
+ .topnav .back {
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+  display: block;
+}
+ .topnav .back:hover {
+    transform: translateX(10px);
+    transition-duration: 1s;
+}
+ .topnav .back svg{
+    width: 30px;
+    height: 30px;
+    transform: rotate(90deg);
+}
+ .topnav .back svg path{
+    fill: black;
+}
+
+/* topnav end-------------------------------------------------------- */

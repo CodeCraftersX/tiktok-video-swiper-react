@@ -6,40 +6,7 @@
     position: relative;
     overflow: hidden;
     /* padding: 55px 0; */
-    
 }
-
-
-/* topnav */
-.NotificationSettingsPage .topnav{
-    width: 100%;
-    height: fit-content;
-    background-color: white;
-    margin: 0;
-    padding: 10px 0;
-    z-index: 3;
-    box-shadow:-1px 10px 10px rgb(46, 45, 45, 0.098);
-}
-.NotificationSettingsPage .topnav .back {
-  width: fit-content;
-  height: fit-content;
-  cursor: pointer;
-  display: block;
-}
-.NotificationSettingsPage .topnav .back:hover {
-    transform: translateX(10px);
-    transition-duration: 1s;
-}
-.NotificationSettingsPage .topnav .back svg{
-    width: 30px;
-    height: 30px;
-    transform: rotate(90deg);
-}
-.NotificationSettingsPage .topnav .back svg path{
-    fill: black;
-}
-
-/* topnav end-------------------------------------------------------- */
 
 
 /* settings---------------------------------------------------  */
