@@ -62,6 +62,8 @@ function TransactionHistory({transactionHistory}) {
                 </div>
             ))}
 
+            <b className="end">No more history</b>
+
         </div>
     </div>
   )

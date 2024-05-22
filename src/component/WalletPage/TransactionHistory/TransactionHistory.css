@@ -107,3 +107,31 @@
 .TransactionHistory .transactionHistoryCont .dateCard ul li .transactionPrice{
     font-size: 20px;
 }
+
+b.end{
+    color: #898989;
+}
+
+
+@media screen and (max-width: 400px) {
+    .TransactionHistory .top header b{
+        font-size: calc(5dvw + 10px);
+    }
+    .TransactionHistory .transactionHistoryCont .dateCard .date {
+        font-size: 5dvw;
+    }
+    .TransactionHistory .transactionHistoryCont .dateCard ul li .transactionType{
+        font-size: 4dvw;
+    }
+    .TransactionHistory .transactionHistoryCont .dateCard ul li .transactionType .ICN-transactionType{
+        width: 20px;
+        height: 20px;
+    }
+    .TransactionHistory .transactionHistoryCont .dateCard ul li .transactionType .ICN-transactionType svg{
+        width: 90%;
+        height: 90%;
+    }
+    .TransactionHistory .transactionHistoryCont .dateCard ul li .transactionPrice{
+        font-size: 4dvw;
+    }
+}
