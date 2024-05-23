@@ -24,7 +24,7 @@ export function changeValue(e) {
 
             // eslint-disable-next-line no-unused-vars
             let spl = tempEle.getAttribute('data-value').split('-').forEach(str => {
-                    valueHolder.innerText += " " + str;
+                    // valueHolder.innerText += " " + str;
                     valo += " " + str
             });
             // console.log(tempEle.parentElement.parentElement.parentElement.classList.toggle('dropped'))
@@ -57,7 +57,7 @@ export function changeValue(e) {
             let valo =""
             // eslint-disable-next-line no-unused-vars
             let spl = tempEle.getAttribute('data-value').split('-').forEach(str => {
-                    valueHolder.innerText += " " + str
+                    // valueHolder.innerText += " " + str
                     valo += " " + str
             });
             // console.log(tempEle.parentElement.parentElement.parentElement.classList.toggle('dropped'))

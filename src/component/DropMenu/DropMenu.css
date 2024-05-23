@@ -50,12 +50,25 @@
     color: #6c7275;
 
 }
-.dropMenu .selected>b {
+.dropMenu .selected .selectedOther{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.dropMenu .selected .selectedOther b {
     margin-left: 10px;
     text-transform: capitalize;
     margin-right: 10px;
     font-weight: bolder;
   }
+.dropMenu .selected .selectedOther svg,
+.dropMenu .selected .selectedOther img{
+  width: 20px;
+  height: 20px;
+  object-position: center;
+  object-fit: cover;
+  padding-left: 10px;
+}
   .dropMenu .selected>i {
     margin-right: 10px;
     -webkit-transform: rotate(0deg);
@@ -99,7 +112,7 @@
    
   }
   .dropMenu .dropList>ul li {
-    width: 80%;
+    width: calc(100% - 30px);
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;

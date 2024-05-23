@@ -45,7 +45,7 @@ button{
     justify-content: space-between;
 }
 .SavedCards .listCards .card .ccCard {
-    width: calc(90% - 50px);
+    width: calc(90% - 100px);
 }
 .SavedCards .listCards .card .ccCard .userCCs {
     padding: 20px 30px;
@@ -76,12 +76,98 @@ button{
 
 
 
+.addCardSection {
+    width: calc(100% - 10px);
+    height: fit-content;
+    margin: 50px auto;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.addCardSection > label{
+    width: 100%;
+    height: fit-content;
+}
+.addCardSection  > label h3{
+    color: black;
+}
+.addCardSection > label .bankListDrop{
+    width: 100%;
+    height: fit-content;
+}
+.addCardSection > label .bankListDrop .selected .text{
+    color: black;
+}
+
+.addCardSection > label .inputCCNum{
+    width: 100%;
+    height: fit-content;
+}
+.addCardSection > label .inputCCNum .INP {
+  width: calc(100% - 20px);
+  height: fit-content;
+  border: 2px solid #898989;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0px 10px;
+}
+.addCardSection > label .inputCCNum .INP .ICN-CC{
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+}
+.addCardSection > label .inputCCNum .INP .ICN-CC svg{
+    width: 100%;
+    height: 100%;
+}
+.addCardSection > label .inputCCNum .INP input{
+    width: calc(100% - 40px);
+    height: fit-content;
+    padding: 10px 0;
+    background-color: #00000000;
+    outline: none;
+    border: none;
+    font-size: 20px;
+    margin-left: 10px;
+    color: #898989;
+}
+.addCardSection>span{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+.addCardSection>span .CheckBox{
+    border: 2px solid #898989;
+}
+.addCardSection>button{
+    width: 90%;
+    height: fit-content;
+    font-size: 20px;
+    padding: 15px 0;
+    margin-top: 50px;
+    border-radius: 10px;
+}
 
 
 
-@media screen and (max-width: 400px) {
+
+
+
+@media screen and (max-width: 500px) {
     .SavedCards .top header b{
         font-size: calc(5dvw + 10px);
     }
-
+    .SavedCards .listCards .card .ccCard .userCCs {
+        font-size: 4dvw;
+    }
+    .userCCs .ICN-cardType .visa {
+        font-size: 4dvw;
+    }
 }

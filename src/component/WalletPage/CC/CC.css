@@ -65,3 +65,21 @@
     top: 0;
     left: calc(50% - 7px);
 }
+@media screen and (max-width: 500px) {
+    .userCCs .ICN-cardType{
+        zoom: 80%;
+    }
+    .userCCs .ICN-cardType .visa {
+        font-size: 4dvw;
+    }
+    .ICN-cardType .mastercard::before{
+        width: 20px;
+        height: 20px;
+        left: calc(50% - 15px);
+    }
+    .ICN-cardType .mastercard::after{
+        width: 20px;
+        height: 20px;
+        left: calc(50% - 5px);
+    }
+}

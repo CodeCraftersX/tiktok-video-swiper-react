@@ -6,7 +6,7 @@ import { changeValue } from "./changeValue";
 import { findChild } from "./findChild";
 // import { Link } from "react-router-dom";
 
-function DropMenu({ isStatic, children, isLink, defaultText, options, selectedBg, dropped, onDropped ,ariaSelect, optionsDrop, colorOpt, colorSelect, optionItem, value }) {
+function DropMenu({selectedOther, isStatic, children, isLink, defaultText, options, selectedBg, dropped, onDropped ,ariaSelect, optionsDrop, colorOpt, colorSelect, optionItem, value }) {
   const [drop, setDrop] = useState(dropped)
   
   function dropDown(e) {
@@ -46,7 +46,11 @@ function DropMenu({ isStatic, children, isLink, defaultText, options, selectedBg
   }
 
   useEffect(() => {
-    onDropped(drop)
+    try {
+      onDropped(drop)
+    } catch (error) {
+      return
+    }
   }, [drop])
   
   
@@ -75,7 +79,10 @@ function DropMenu({ isStatic, children, isLink, defaultText, options, selectedBg
               return
             }
           }}>
-        <b className="text">{defaultText}</b>
+          <div className="selectedOther">
+          {selectedOther}
+            <b className="text">{defaultText}</b>
+          </div>
         <i className="ICN-arr">
           <svg
             width="10"
