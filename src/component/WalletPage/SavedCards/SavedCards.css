@@ -1,0 +1,87 @@
+.SavedCards{
+    width: 100%;
+    height: fit-content;
+}
+button{
+    cursor: pointer;
+}
+.SavedCards .top{
+    width: 98%;
+    height: fit-content;
+    margin-top: 20px;
+    margin: auto;
+}
+.SavedCards .top header{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px auto;
+}
+.SavedCards .top header b{
+    color: black;
+    font-size: 25px;
+}
+
+
+.SavedCards .listCards {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    gap: 10px;
+
+}
+.SavedCards .listCards .card {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.SavedCards .listCards .card .ccCard {
+    width: calc(90% - 50px);
+}
+.SavedCards .listCards .card .ccCard .userCCs {
+    padding: 20px 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #898989;
+    font-size: 20px;
+}
+
+.SavedCards .listCards .card .ccCard .userCCs .cardTypeNum {
+    gap: 10px;
+}
+
+.SavedCards .listCards .card .del{
+    width: 20px;
+    height: 20px;
+    border-left: 2px solid #898989;
+    padding: 10px;
+    cursor: pointer;
+}
+.SavedCards .listCards .card .del svg{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 400px) {
+    .SavedCards .top header b{
+        font-size: calc(5dvw + 10px);
+    }
+
+}

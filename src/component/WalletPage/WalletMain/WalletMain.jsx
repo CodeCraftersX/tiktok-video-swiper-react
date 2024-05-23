@@ -14,7 +14,7 @@ function WalletMain({transactionHistory, nav}) {
             <div className="balanceCard">
                 <b className="balance">$465 376.00</b>
                 <div className="transBtn">
-                    <button className="deposit">Deposit</button>
+                    <button className="deposit" onClick={()=>nav("deposit")}>Deposit</button>
                     <button className="withdraw">Withdraw</button>
                 </div>
             </div>

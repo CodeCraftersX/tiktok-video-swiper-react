@@ -4,6 +4,8 @@ import './WalletPage.css'
 import BackTop from '../BackTop/BackTop'
 import WalletMain from './WalletMain/WalletMain'
 import TransactionHistory from './TransactionHistory/TransactionHistory'
+import Deposit from './Deposit/Deposit'
+import SavedCards from './SavedCards/SavedCards'
 
 function WalletPage() {
     const transactionHistory = [
@@ -92,6 +94,20 @@ function WalletPage() {
             id: 14
         }
     ]
+    const [cards, setCards] = useState([
+        {
+            userName: "user name",
+            cardNumber: "1234555566667890",
+            cardType: "mastercard",
+            id: 0
+        },
+        {
+            userName: "user name",
+            cardNumber: "1234555566667890",
+            cardType: "visa",
+            id: 1
+        }
+    ])
     const [walletDir, setWalletDir] = useState("main")
     const [walletDirHistory, setWalletDirHistory] = useState("main")
     
@@ -119,6 +135,13 @@ function WalletPage() {
                     }}/>
                 :walletDir=="transactionHistory"?
                     <TransactionHistory transactionHistory={transactionHistory}/>
+                :walletDir=="deposit"?
+                    <Deposit cards={cards} nav={(dir)=> {
+                        setWalletDirHistory(walletDir)
+                        setWalletDir(dir)
+                    }}/>
+                :walletDir=="saved-cards"?
+                    <SavedCards cards={cards}/>
                 :null
             }
         </div>

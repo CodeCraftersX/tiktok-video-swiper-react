@@ -6,9 +6,9 @@ import './SubscriptionSettingCard.css'
 
 
 
-function SubscriptionSettingCard({labelName, children, style}) {
+function SubscriptionSettingCard({className, labelName, children, style}) {
   return (
-    <label className='SubscriptionSettingCard' style={style}>
+    <label className={className?className:'SubscriptionSettingCard'} style={style}>
         <h3>{labelName}</h3>
         {children}
     </label>
