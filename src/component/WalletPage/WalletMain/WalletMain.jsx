@@ -9,13 +9,13 @@ function WalletMain({transactionHistory, nav}) {
         <nav className="top">
             <header>
                 <b>Wallet</b>
-                <button>Add Card</button>
+                <button onClick={()=>nav("saved-cards")}>Add Card</button>
             </header>
             <div className="balanceCard">
                 <b className="balance">$465 376.00</b>
                 <div className="transBtn">
                     <button className="deposit" onClick={()=>nav("deposit")}>Deposit</button>
-                    <button className="withdraw">Withdraw</button>
+                    <button className="withdraw" onClick={()=>nav("withdraw")}>Withdraw</button>
                 </div>
             </div>
         </nav>

@@ -4,14 +4,15 @@ import React, { useEffect, useState } from 'react'
 import './SavedCards.css'
 import CC from '../CC/CC'
 import DropMenu from '../../DropMenu/DropMenu'
-import Select from '../../Select/Select'
 import CheckBox from '../../CheckBox/CheckBox'
-let Selection = new Select
+import { Selection } from '../../Select/Select'
+
 // eslint-disable-next-line react/prop-types
-function SavedCards({cards}) {
+function SavedCards({cards, nav}) {
     const [addCard, setAddCard] = useState({
         bankName: "",
-        cardNumber: null
+        cardNumber: null,
+        cardType: ""
     })
 
     function setCardValues(toChange, finalValue){
@@ -22,9 +23,7 @@ function SavedCards({cards}) {
         ))
     }
 
-    useEffect(() => {
-        console.log(addCard);
-      }, [addCard])
+
 
 
 
@@ -33,7 +32,7 @@ function SavedCards({cards}) {
 
 
   return (
-    <div className='SavedCards'>
+    <div className='Saved'>
         <nav className="top">
             <header>
                 <b>SavedCards</b>
@@ -63,27 +62,33 @@ function SavedCards({cards}) {
             <label htmlFor="bankName">
                 <h3>Bank Name</h3>
                 <div className="bankListDrop">
-                    <DropMenu
-                        options={[
-                            "Bank of America",
-                            "Bank of Nigeria",
-                            "Bank of Earth",
-                            "Bank of Konoha",
-
-                        ]}
-                        defaultText={addCard.bankName}
-                        value={(val)=>{
-                            setCardValues("bankName", val)
-                        }}
-                        colorSelect="#898989"
-                        selectedOther={
+                    
+                    <Selection.Select className="bankSelection" selected={
                             <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="800px" height="800px" viewBox="0 0 24 24"><path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"/></svg>
-                        }
-                    />
+                        } value={addCard.bankName}>
+                        <Selection.Option
+                            className="bankOption"
+                            onClick={(val)=>{
+                                setCardValues("bankName", val)
+                            }}
+                            value="option 1">Option 1</Selection.Option>
+                        <Selection.Option
+                            className="bankOption"
+                            onClick={(val)=>{
+                                setCardValues("bankName", val)
+                            }}
+                            value="option 2">Option 2</Selection.Option>
+                        <Selection.Option
+                            className="bankOption"
+                            onClick={(val)=>{
+                                setCardValues("cardNumber", val)
+                            }}
+                            value="option 3">Option 3</Selection.Option>
+                    </Selection.Select>
                 </div>
                 
             </label>
-            <label htmlFor="bankName">
+            <label htmlFor="cardNumber">
                 <h3>Card Number</h3>
                 <div className="inputCCNum">
                     <span className="INP">
@@ -94,7 +99,11 @@ function SavedCards({cards}) {
                                 <path d="M22 9.00001L22 8.93418C22.0001 8.04769 22.0001 7.28387 21.9179 6.67221C21.8297 6.0167 21.631 5.38835 21.1213 4.87869C20.6117 4.36902 19.9833 4.17028 19.3278 4.08215C18.7161 3.99991 17.9523 3.99995 17.0658 4L6.93418 4C6.04769 3.99995 5.28388 3.99991 4.67222 4.08215C4.0167 4.17028 3.38835 4.36902 2.87869 4.87868C2.36902 5.38835 2.17028 6.0167 2.08215 6.67221C1.99991 7.28388 1.99995 8.0477 2 8.9342L2 9L22 9.00001Z" fill="#323232"/>
                             </svg>
                         </i>
-                        <input type="number" placeholder='0000 0000 0000 0000'/>
+                        <input type="number" onChange={(inp)=>{
+                                setCardValues("bankName", inp.target.value)
+                            }}
+                         placeholder='0000 0000 0000 0000'/>
+                         <input type="hidden" value={addCard.cardType} />{/* modify this input to change the card type automatically when the type is recognized  */}
                     </span>
                 </div>
                 
@@ -103,7 +112,7 @@ function SavedCards({cards}) {
                 <CheckBox placeHolder="Save this card for future payment"/> 
             </span>
 
-            <button>Add Card</button>
+            <button onClick={()=>nav("saved-banks")}>Add Card</button>
         </div>
     
     

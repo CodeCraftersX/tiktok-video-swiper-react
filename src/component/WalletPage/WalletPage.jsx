@@ -6,6 +6,7 @@ import WalletMain from './WalletMain/WalletMain'
 import TransactionHistory from './TransactionHistory/TransactionHistory'
 import Deposit from './Deposit/Deposit'
 import SavedCards from './SavedCards/SavedCards'
+import SavedBanks from './SavedCards/SavedBanks'
 
 function WalletPage() {
     const transactionHistory = [
@@ -108,14 +109,53 @@ function WalletPage() {
             id: 1
         }
     ])
+    const [banks, setBanks] = useState([
+        {
+            bankName: "Capital one",
+            accountNumber: "1234567890",
+            id: 0
+        },
+        {
+            bankName: "Bank of one",
+            accountNumber: "1234567890",
+            id: 1
+        }
+    ])
     const [walletDir, setWalletDir] = useState("main")
     const [walletDirHistory, setWalletDirHistory] = useState("main")
-    
+    //  the following sections are functionalities, not necessary!
     useEffect(() => {
       if(walletDir == "main"){
         setWalletDirHistory("main")
       }
     }, [walletDir])
+
+
+
+    function removeBankList(id){
+        let newBankArray = banks.filter(bank=>bank.id !==id)
+        setBanks(newBankArray)
+    }
+    function addBankList(item){
+        banks.map(i=>{
+            if(i.accountNumber == item.accountNumber){
+                return
+            }
+        })
+        item.id = banks.length-1
+        setBanks(prev => [...prev, item])
+
+        // stopped here for today
+    }
+
+    const actions = {
+        addBankList,
+        removeBankList
+    }
+    // remove the set wallet dir, it is the navigator for the wallet page, it's not well functional!
+
+    // -------------------------ends here
+
     
 
 
@@ -141,7 +181,14 @@ function WalletPage() {
                         setWalletDir(dir)
                     }}/>
                 :walletDir=="saved-cards"?
-                    <SavedCards cards={cards}/>
+                    <SavedCards cards={cards} nav={(dir)=> {
+                        setWalletDirHistory(walletDir)
+                        setWalletDir(dir)
+                    }}/>
+                :walletDir=="saved-banks"?
+                    <SavedBanks actions={actions} banks={banks}/>
+                :walletDir=="withdraw"?
+                    <SavedBanks actions={actions} banks={banks} withdraw={true}/>
                 :null
             }
         </div>
